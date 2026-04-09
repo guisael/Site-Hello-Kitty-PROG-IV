@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello Kitty & miguinhos 🎀</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ══════════════════════════════
+       RESET & BASE
+    ══════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #FFF0F5;
+      color: #7A3050;
+      min-height: 100vh;
+    }
+
+    /* ══════════════════════════════
+       NAVIGATION
+    ══════════════════════════════ */
+    nav {
+      background: linear-gradient(135deg, #FF85A2 0%, #FFB6C1 100%);
+      padding: 14px 0 10px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 20px rgba(255,77,141,0.22);
+    }
+
+    .nav-logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.45rem;
+      color: #fff;
+      text-shadow: 1px 2px 8px rgba(160,40,80,0.3);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 0.75; }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .hero {
+      background: linear-gradient(135deg, #FF85A2 0%, #FFB6C1 55%, #FFCCD5 100%);
+      padding: 72px 20px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 260px; height: 260px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      top: -60px; left: -60px;
+      animation: float 7s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 180px; height: 180px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      bottom: -40px; right: -40px;
+      animation: float 5s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-18px) scale(1.04); }
+    }
+
+    .hero-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.75rem, 5vw, 2.9rem);
+      color: #fff;
+      text-shadow: 2px 4px 14px rgba(140,30,70,0.28);
+      position: relative;
+      z-index: 1;
+      animation: slideDown 0.7s ease both;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══════════════════════════════
+       MAIN WRAPPER
+    ══════════════════════════════ */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* ══════════════════════════════
+       SECTION CARD
+    ══════════════════════════════ */
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 30px 34px;
+      box-shadow: 0 6px 28px rgba(255,77,141,0.13);
+      animation: fadeUp 0.55s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.15s; }
+    .card:nth-child(3) { animation-delay: 0.25s; }
+    .card:nth-child(4) { animation-delay: 0.35s; }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #7A3050;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h2::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 22px;
+      background: linear-gradient(to bottom, #FF4D8D, #FFB6C1);
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .card p {
+      font-size: 0.94rem;
+      color: #B55E87;
+      line-height: 1.75;
+    }
+
+    /* ══════════════════════════════
+       PERSONAGENS GRID
+    ══════════════════════════════ */
+    .chars-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .char-card {
+      background: #FDE8F0;
+      border: 2px solid #FFD0E4;
+      border-radius: 16px;
+      padding: 13px 22px;
+      text-align: center;
+      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+      cursor: default;
+    }
+
+    .char-card:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 26px rgba(255,77,141,0.22);
+      border-color: #FF85A2;
+    }
+
+    .char-name {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #7A3050;
+    }
+
+    .char-desc {
+      font-size: 0.74rem;
+      color: #B55E87;
+      margin-top: 3px;
+    }
+
+    /* ══════════════════════════════
+       LIGHTBOX — pure CSS checkbox trick
+    ══════════════════════════════ */
+    .lb-toggle { display: none; }
+
+    .lb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(100,20,50,0.62);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #lb1:checked ~ .lb-overlay-1,
+    #lb2:checked ~ .lb-overlay-2,
+    #lb3:checked ~ .lb-overlay-3,
+    #lb4:checked ~ .lb-overlay-4,
+    #lb5:checked ~ .lb-overlay-5,
+    #lb6:checked ~ .lb-overlay-6,
+    #lb7:checked ~ .lb-overlay-7,
+    #lb8:checked ~ .lb-overlay-8 { display: flex; }
+
+    .lb-overlay img {
+      max-width: 82vw;
+      max-height: 76vh;
+      border-radius: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      animation: popIn 0.25s ease both;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.65); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .lb-close-area {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .lb-x {
+      position: absolute;
+      top: 22px; right: 30px;
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #fff;
+      cursor: pointer;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      transition: transform 0.2s;
+      z-index: 3;
+      line-height: 1;
+      user-select: none;
+    }
+    .lb-x:hover { transform: scale(1.25) rotate(10deg); }
+
+    .lb-caption {
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-top: 16px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ══════════════════════════════
+       GALERIA GRID
+    ══════════════════════════════ */
+    .gallery-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .gallery-item {
+      width: 128px;
+      height: 128px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #FDE8F0;
+      border: 2.5px solid #FFD0E4;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.09) rotate(1.5deg);
+      box-shadow: 0 10px 28px rgba(255,77,141,0.25);
+      border-color: #FF85A2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ══════════════════════════════
+       FORM
+    ══════════════════════════════ */
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-fields input,
+    .form-fields textarea {
+      border: 2px solid #FFD0E4;
+      border-radius: 13px;
+      padding: 12px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem;
+      color: #7A3050;
+      background: #FFF0F5;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
+      width: 100%;
+    }
+
+    .form-fields input::placeholder,
+    .form-fields textarea::placeholder { color: #D49AB5; }
+
+    .form-fields input:focus,
+    .form-fields textarea:focus {
+      border-color: #FF85A2;
+      box-shadow: 0 0 0 4px rgba(255,133,162,0.15);
+    }
+
+    .form-fields textarea { height: 88px; }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #FF4D8D 0%, #FF85A2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      padding: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      width: 100%;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(255,77,141,0.38);
+      filter: brightness(1.06);
+    }
+
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      background: linear-gradient(135deg, #FF85A2 0%, #FFB6C1 100%);
+      color: #fff;
+      text-align: center;
+      padding: 18px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media (max-width: 600px) {
+      .card { padding: 20px 16px; }
+      .gallery-item { width: 100px; height: 100px; }
+      .char-card { padding: 11px 14px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ═══ LIGHTBOX CHECKBOXES (must be at top, siblings of overlays) ═══ -->
+<input type="checkbox" class="lb-toggle" id="lb1" />
+<input type="checkbox" class="lb-toggle" id="lb2" />
+<input type="checkbox" class="lb-toggle" id="lb3" />
+<input type="checkbox" class="lb-toggle" id="lb4" />
+<input type="checkbox" class="lb-toggle" id="lb5" />
+<input type="checkbox" class="lb-toggle" id="lb6" />
+<input type="checkbox" class="lb-toggle" id="lb7" />
+<input type="checkbox" class="lb-toggle" id="lb8" />
+
+<!-- ═══ LIGHTBOX OVERLAYS ═══ -->
+<div class="lb-overlay lb-overlay-1">
+  <label class="lb-close-area" for="lb1"></label>
+  <label class="lb-x" for="lb1">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/5/52/Sanrio_Characters_Hello_Kitty_Image026.png/revision/latest?cb=20250110105831" alt="Hello Kitty" />
+  <span class="lb-caption">Hello Kitty 🎀</span>
+</div>
+<div class="lb-overlay lb-overlay-2">
+  <label class="lb-close-area" for="lb2"></label>
+  <label class="lb-x" for="lb2">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/3/33/Sanrio_Characters_My_Melody_Image029.png/revision/latest?cb=20170407005355" alt="My Melody" />
+  <span class="lb-caption">My Melody 🌸</span>
+</div>
+<div class="lb-overlay lb-overlay-3">
+  <label class="lb-close-area" for="lb3"></label>
+  <label class="lb-x" for="lb3">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/8/8d/Sanrio_Characters_Kuromi_Image016.png/revision/latest?cb=20170404142717" alt="Kuromi" />
+  <span class="lb-caption">Kuromi 😈</span>
+</div>
+<div class="lb-overlay lb-overlay-4">
+  <label class="lb-close-area" for="lb4"></label>
+  <label class="lb-x" for="lb4">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/5/5b/Sanrio_Characters_Cinnamoroll_Image026.png/revision/latest?cb=20170520011552" alt="Cinnamoroll" />
+  <span class="lb-caption">Cinnamoroll ☁️</span>
+</div>
+<div class="lb-overlay lb-overlay-5">
+  <label class="lb-close-area" for="lb5"></label>
+  <label class="lb-x" for="lb5">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/e/ee/Happy_Pompompurin.png/revision/latest?cb=20250630212620" alt="Pompompurin" />
+  <span class="lb-caption">Pompompurin 🍮</span>
+</div>
+<div class="lb-overlay lb-overlay-6">
+  <label class="lb-close-area" for="lb6"></label>
+  <label class="lb-x" for="lb6">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/7/7d/Sanrio_Characters_Bad_Badtz-Maru_Image006.png/revision/latest?cb=20170404142717" alt="Badtz-Maru" />
+  <span class="lb-caption">Badtz-Maru 🖤</span>
+</div>
+<div class="lb-overlay lb-overlay-7">
+  <label class="lb-close-area" for="lb7"></label>
+  <label class="lb-x" for="lb7">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/4/41/Sanrio_Characters_Keroppi_Image009.png/revision/latest?cb=20170404142717" alt="Keroppi" />
+  <span class="lb-caption">Keroppi 🐸</span>
+</div>
+<div class="lb-overlay lb-overlay-8">
+  <label class="lb-close-area" for="lb8"></label>
+  <label class="lb-x" for="lb8">✕</label>
+  <img src="https://static.wikia.nocookie.net/hellokitty/images/1/11/Sanrio_Characters_Pochacco_Image007.png/revision/latest?cb=20170404142717" alt="Pochacco" />
+  <span class="lb-caption">Pochacco 🐾</span>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <span class="nav-logo">🎀 Hello Kitty &amp; miguinhos 🎀</span>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#personagens">Personagens</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#entrar">Entrar</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <h1 class="hero-title">Um mundo cheio de fofura e amizade 💕</h1>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<main>
+
+  <section class="card" id="sobre">
+    <h2>Sobre</h2>
+    <p>O universo Hello Kitty é cheio de amizade, carinho e aventuras fofinhas. Cada personagem tem sua própria personalidade encantadora!</p>
+  </section>
+
+  <section class="card" id="personagens">
+    <h2>Personagens</h2>
+    <div class="chars-grid">
+      <div class="char-card"><div class="char-name">Hello Kitty</div><div class="char-desc">Gentil e adorável 🎀</div></div>
+      <div class="char-card"><div class="char-name">My Melody</div><div class="char-desc">Doce e amigável 🌸</div></div>
+      <div class="char-card"><div class="char-name">Kuromi</div><div class="char-desc">Travessa e estilosa 😈</div></div>
+      <div class="char-card"><div class="char-name">Cinnamoroll</div><div class="char-desc">Fofo e tímido ☁️</div></div>
+      <div class="char-card"><div class="char-name">Pompompurin</div><div class="char-desc">Relaxado e fofo 🍮</div></div>
+      <div class="char-card"><div class="char-name">Badtz-Maru</div><div class="char-desc">Rebelde e engraçado 🖤</div></div>
+      <div class="char-card"><div class="char-name">Keroppi</div><div class="char-desc">Alegre e aventureiro 🐸</div></div>
+      <div class="char-card"><div class="char-name">Pochacco</div><div class="char-desc">Curioso e desajeitado 🐾</div></div>
+    </div>
+  </section>
+
+  <section class="card" id="galeria">
+    <h2>Galeria</h2>
+    <div class="gallery-grid">
+      <label class="gallery-item" for="lb1" title="Hello Kitty">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/5/52/Sanrio_Characters_Hello_Kitty_Image026.png/revision/latest/scale-to-width-down/180?cb=20250110105831" alt="Hello Kitty" loading="lazy" />
+      </label>
+      <label class="gallery-item" for="lb2" title="My Melody">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/3/33/Sanrio_Characters_My_Melody_Image029.png/revision/latest/scale-to-width-down/180?cb=20170407005355" alt="My Melody" loading="lazy" />
+      </label>
+      <label class="gallery-item" for="lb3" title="Kuromi">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/8/8d/Sanrio_Characters_Kuromi_Image016.png/revision/latest/scale-to-width-down/180?cb=20170404142717" alt="Kuromi" loading="lazy" />
+      </label>
+      <label class="gallery-item" for="lb4" title="Cinnamoroll">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/5/5b/Sanrio_Characters_Cinnamoroll_Image026.png/revision/latest/scale-to-width-down/180?cb=20170520011552" alt="Cinnamoroll" loading="lazy" />
+      </label>
+      <label class="gallery-item" for="lb5" title="Pompompurin">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/e/ee/Happy_Pompompurin.png/revision/latest/scale-to-width-down/180?cb=20250630212620" alt="Pompompurin" loading="lazy" />
+      </label>
+      <label class="gallery-item" for="lb6" title="Badtz-Maru">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/b/b1/List-badtzmaru-1.png/revision/latest?cb=20250927221332" alt="Badtz-Maru" loading="lazy" />
+      </label>
+      <label class="gallery-item" for="lb7" title="Keroppi">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/c/c4/List-kerokerokeroppi.png/revision/latest?cb=20251102192805" alt="Keroppi" loading="lazy" />
+      </label>
+      <label class="gallery-item" for="lb8" title="Pochacco">
+        <img src="https://static.wikia.nocookie.net/hellokitty/images/f/f4/List-Pochacco.png/revision/latest?cb=20251005042623" alt="Pochacco" loading="lazy" />
+      </label>
+    </div>
+  </section>
+
+  <section class="card" id="entrar">
+    <h2>Entrar no Fã-clube</h2>
+    <div class="form-fields">
+      <input type="text"  placeholder="Seu nome" />
+      <input type="email" placeholder="Seu email" />
+      <textarea placeholder="Mensagem fofinha 💌"></textarea>
+      <button class="btn-submit" type="button">Enviar 🌸</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>Se divirtam 🎀</footer>
+
+</body>
+</html>
